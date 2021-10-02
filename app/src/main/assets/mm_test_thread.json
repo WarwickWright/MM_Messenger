@@ -1,0 +1,103 @@
+{
+	"muzmatch_message_history": [
+		{
+		"out_id": "00000001",
+		"out_label": "muz",
+		"in_id": "00000002",
+		"in_label": "match",
+		"is_outgoing": true,
+		"time_stamp": "1633140000833",
+		"message": "Nice to meet you Match"
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": false,
+			"time_stamp": "1633140001833",
+			"message": "You too Muz"
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": true,
+			"time_stamp": "1633140002833",
+			"message": "Have you been married before?"
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": false,
+			"time_stamp": "1633140003833",
+			"message": "Yes"
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": true,
+			"time_stamp": "1633140004833",
+			"message": "Do you have any children?"
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": false,
+			"time_stamp": "1633140005833",
+			"message": "Yes"
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": false,
+			"time_stamp": "1633140006833",
+			"message": "They are both grown up 24 and 27 year old boys"
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": false,
+			"time_stamp": "1633140007833",
+			"message": "and you? Do you have any little ones?"
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": true,
+			"time_stamp": "1633140008833",
+			"message": "No, never married, no children, been a batchelor all my life and decided it's time to settle down."
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000002",
+			"in_label": "match",
+			"is_outgoing": false,
+			"time_stamp": "0000000000000",
+			"message": "Old test message set to 1 hour old less 10 seconds when app opens."
+		},
+		{
+			"out_id": "00000001",
+			"out_label": "muz",
+			"in_id": "00000003",
+			"in_label": "Muzmatch",
+			"is_outgoing": true,
+			"time_stamp": "1633140009833",
+			"message": "Message from someone else. This message will not show up on thread. Test app filters by in_id:00000002"
+		}
+	]
+}
