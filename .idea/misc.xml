@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/layout/activity_main.xml" value="0.18854166666666666" />
-        <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/layout/main_activity.xml" value="0.1" />
+        <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/layout/main_activity.xml" value="0.33" />
         <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/layout/main_fragment.xml" value="0.3416666666666667" />
+        <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/layout/message_item_fragment.xml" value="0.3416666666666667" />
+        <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/layout/message_item_list_fragment.xml" value="0.3416666666666667" />
       </map>
     </option>
   </component>

@@ -1,19 +1,19 @@
 package com.WarwickWestonWright.MM_Messenger
 
 import android.content.res.AssetManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.WarwickWestonWright.MM_Messenger.Constants.IN_ID
 import com.WarwickWestonWright.MM_Messenger.Constants.ONE_HOUR
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThread
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 import com.WarwickWestonWright.MM_Messenger.Data.ViewModels.MsgThreadsViewModel
 import com.WarwickWestonWright.MM_Messenger.FileHandlers.TextAssetMan
 import com.WarwickWestonWright.MM_Messenger.UI.Fragments.MainFragment
+import com.WarwickWestonWright.MM_Messenger.Utilities.Converters.Converters
 import com.WarwickWestonWright.MM_Messenger.Utilities.RoomUtils.RoomUtils
 import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 import com.WarwickWestonWright.MM_Messenger.databinding.MainActivityBinding
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
             }
             /* Test Code For Older than hour */
             msgThreads.add(msgThread)
-            timeUtils.olderThanAnHour(msgThread.timeStamp)
+            //timeUtils.olderThanAnHour(msgThread.timeStamp)
         }
         //msgThreadsDb.userDao().insertAll(msgThreads)//Use this if you don't want list to be updated
         roomUtils.insertAll(msgThreads)//Update db through roomUtils to update list
@@ -113,8 +113,9 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
     }
 
     override fun insertAll(msgThreadsInserted: List<MsgThread>) {
+        msgThreads = msgThreadsDb.userDao().loadAllByIds(IN_ID).toMutableList()
         runOnUiThread {
-            msgThreadsViewModel.selected.value = msgThreadsInserted?.toMutableList()
+            msgThreadsViewModel.selected.value = msgThreads
         }
     }
 

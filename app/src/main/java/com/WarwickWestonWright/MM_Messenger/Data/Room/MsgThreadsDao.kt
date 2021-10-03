@@ -11,7 +11,7 @@ interface MsgThreadDao {
     fun getAll(): List<MsgThread>
 
     @Query("SELECT * FROM MsgThread WHERE in_id IN (:inId)")
-    fun loadAllByIds(inId: IntArray): List<MsgThread>//Open ended so that can filter by incoming messages
+    fun loadAllByIds(inId: String): List<MsgThread>//Open ended so that can filter by incoming messages
 
     @Insert
     fun insertMsg(msgThread : MsgThread) : Long
