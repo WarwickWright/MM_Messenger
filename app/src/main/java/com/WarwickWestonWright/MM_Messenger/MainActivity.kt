@@ -7,13 +7,16 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.WarwickWestonWright.MM_Messenger.Constants.ONE_HOUR
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThread
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 import com.WarwickWestonWright.MM_Messenger.FileHandlers.TextAssetMan
 import com.WarwickWestonWright.MM_Messenger.Utilities.RoomUtils.RoomUtils
+import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 import com.WarwickWestonWright.MM_Messenger.databinding.MainActivityBinding
 import org.json.JSONArray
 import org.json.JSONObject
+import java.util.*
 
 class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.IRoomUtils {
 
@@ -25,6 +28,7 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
     private lateinit var am : AssetManager
     private lateinit var textAssetMan: TextAssetMan
     private lateinit var roomUtils: RoomUtils
+    private lateinit var timeUtils: TimeUtils
 
     //private lateinit var btnToggleInOutGoing : Button
     private lateinit var bntClearThread : Button
@@ -43,6 +47,7 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
         textAssetMan.getTextAsset("mm_test_thread.json")
         msgThreadsDb = app.msgThreadsDb
         roomUtils = RoomUtils(this, msgThreadsDb)
+        timeUtils = TimeUtils()
         binding.btnToggleInOutGoing.setOnClickListener {
             Toast.makeText(this, "ToDo", Toast.LENGTH_SHORT).show()
         }
@@ -60,33 +65,41 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
         var msgThreadJSon : JSONArray = JSONObject(text).getJSONArray("muzmatch_message_history")
         for (i in 0 until msgThreadJSon.length()) {
             val jso = msgThreadJSon.get(i) as JSONObject
-            val outId = jso.get("out_id")
-            val outLabel = jso.get("out_label")
-            val inId = jso.get("in_id")
-            val inLabel = jso.get("in_label")
-            val isOutgoing = jso.get("is_outgoing").toString()
-            val timeStamp = jso.get("time_stamp")
-            val message = jso.get("message")
+            val outId = jso.getString("out_id")
+            val outLabel = jso.getString("out_label")
+            val inId = jso.getString("in_id")
+            val inLabel = jso.getString("in_label")
+            val isOutgoing = jso.getString("is_outgoing").toBoolean()
+            val timeStamp = jso.getString("time_stamp").toLong()
+            val message = jso.getString("message")
             val msgThread = MsgThread(uid = 0,
                 outId = outId as String?,
                 outLabel = outLabel as String?,
                 inId = inId as String?,
-                inLabel = inLabel as String?, isOutgoing,
-                timeStamp = timeStamp as String?,
+                inLabel = inLabel as String?,
+                isOutgoing = isOutgoing as Boolean?,
+                timeStamp = timeStamp as Long?,
                 message = message as String?
             )
+            /* Test Code For Older than hour */
+            if(msgThread.timeStamp!! == 0L) {
+                msgThread.timeStamp = Date().time - (ONE_HOUR - 1000)
+            }
+            /* Test Code For Older than hour */
             msgThreads.add(msgThread)
+            timeUtils.olderThanAnHour(msgThread.timeStamp)
+            val x = 0
         }
-        //msgThreadsDb.userDao().insertAll(msgThreads)
-        roomUtils.insertAll(msgThreads)
+        //msgThreadsDb.userDao().insertAll(msgThreads)//Use this if you don't want list to be updated
+        roomUtils.insertAll(msgThreads)//Update db through roomUtils to update list
     }
 
     override fun onStop() {
         super.onStop()
         Thread {
             msgThreads = msgThreadsDb.userDao().getAll().toMutableList()
-            //msgThreadsDb.userDao().deleteAll(msgThreads)
-            roomUtils.deleteAll(msgThreads)
+            //msgThreadsDb.userDao().deleteAll(msgThreads)//Use this if you don't want list to be updated
+            roomUtils.deleteAll(msgThreads)//Update db through roomUtils to update list
         }.start()
     }
 
