@@ -12,7 +12,7 @@ data class MsgThread(
     @ColumnInfo(name = "out_label") val outLabel: String?,
     @ColumnInfo(name = "in_id") val inId: String?,
     @ColumnInfo(name = "in_label") val inLabel: String?,
-    @ColumnInfo(name = "is_outgoing") val isOutgoing: String?,
-    @ColumnInfo(name = "time_stamp") val timeStamp: String?,
+    @ColumnInfo(name = "is_outgoing") val isOutgoing: Boolean?,
+    @ColumnInfo(name = "time_stamp") var timeStamp: Long?,
     @ColumnInfo(name = "message") val message: String?
 )
