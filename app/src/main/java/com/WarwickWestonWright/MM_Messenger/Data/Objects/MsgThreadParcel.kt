@@ -1,8 +1,9 @@
 package com.WarwickWestonWright.MM_Messenger.Data.Objects
 
-import android.os.Parcel
 import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 class MsgThreadParcel() : Parcelable {
     private var uid : Int = 0
     private var outId : String = ""
@@ -52,34 +53,5 @@ class MsgThreadParcel() : Parcelable {
     fun setIsOutgoing(isOutgoing : Boolean) { this.isOutgoing = isOutgoing }
     fun setTimeStamp(timeStamp : Long) { this.timeStamp = timeStamp }
     fun setMessage(message : String) { this.message = message }
-
-    constructor(parcel: Parcel) : this() {
-        uid = parcel.readInt()
-        outId = parcel.readString().toString()
-        outLabel = parcel.readString().toString()
-        inId = parcel.readString().toString()
-        inLabel = parcel.readString().toString()
-        isOutgoing = parcel.readByte() != 0.toByte()
-        timeStamp = parcel.readLong()
-        message = parcel.readString().toString()
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(uid)
-        parcel.writeString(outId)
-        parcel.writeString(outLabel)
-        parcel.writeString(inId)
-        parcel.writeString(inLabel)
-        parcel.writeByte(if (isOutgoing) 1 else 0)
-        parcel.writeLong(timeStamp)
-        parcel.writeString(message)
-    }
-
-    override fun describeContents(): Int { return 0 }
-
-    companion object CREATOR : Parcelable.Creator<MsgThreadParcel> {
-        override fun createFromParcel(parcel: Parcel): MsgThreadParcel { return MsgThreadParcel(parcel) }
-        override fun newArray(size: Int): Array<MsgThreadParcel?> { return arrayOfNulls(size) }
-    }
 
 }

@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="6dp">
 
     <!-- Outgoing Section -->
     <LinearLayout
@@ -23,17 +24,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/outgoing_bg"
+                android:padding="6dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/lblOutGoing"
+                    style="@style/txt_message_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="Test Test Test Test Test Test Test Test Test Test Test Test Test"/>
+                    android:text="Test Message Test Message Test Message Test Message Test Message Test Message"/>
 
                 <TextView
                     android:id="@+id/lblTimeStampOutgoing"
+                    style="@style/txt_message_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -78,18 +82,21 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/incoming_bg"
+                android:background="@drawable/mm_incoming_bg_tail"
+                android:padding="6dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/lblInComing"
+                    style="@style/txt_message_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="Test Test Test Test Test Test Test Test Test Test Test Test Test"/>
+                    android:text="Test Message Test Message Test Message Test Message Test Message Test Message"/>
 
                 <TextView
                     android:id="@+id/lblTimeStampIncoming"
+                    style="@style/txt_message_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"

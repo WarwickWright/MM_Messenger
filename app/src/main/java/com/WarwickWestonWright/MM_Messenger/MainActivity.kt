@@ -13,7 +13,6 @@ import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 import com.WarwickWestonWright.MM_Messenger.Data.ViewModels.MsgThreadsViewModel
 import com.WarwickWestonWright.MM_Messenger.FileHandlers.TextAssetMan
 import com.WarwickWestonWright.MM_Messenger.UI.Fragments.MainFragment
-import com.WarwickWestonWright.MM_Messenger.Utilities.Converters.Converters
 import com.WarwickWestonWright.MM_Messenger.Utilities.RoomUtils.RoomUtils
 import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 import com.WarwickWestonWright.MM_Messenger.databinding.MainActivityBinding

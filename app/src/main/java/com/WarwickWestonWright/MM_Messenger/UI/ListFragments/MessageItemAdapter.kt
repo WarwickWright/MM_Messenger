@@ -7,7 +7,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.WarwickWestonWright.MM_Messenger.Data.Objects.MsgThreadParcel
-import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThread
 import com.WarwickWestonWright.MM_Messenger.databinding.MessageItemFragmentBinding
 
 class MessageItemAdapter(private val values: MutableList<MsgThreadParcel>) : RecyclerView.Adapter<MessageItemAdapter.ViewHolder>() {

@@ -10,7 +10,8 @@ interface MsgThreadDao {
     @Query("SELECT * FROM MsgThread")
     fun getAll(): List<MsgThread>
 
-    @Query("SELECT * FROM MsgThread WHERE in_id IN (:inId)")
+    //[ORDER BY column1, column2, .. columnN] [ASC | DESC];
+    @Query("SELECT * FROM MsgThread WHERE in_id IN (:inId) ORDER BY time_stamp ASC")
     fun loadAllByIds(inId: String): List<MsgThread>//Open ended so that can filter by incoming messages
 
     @Insert

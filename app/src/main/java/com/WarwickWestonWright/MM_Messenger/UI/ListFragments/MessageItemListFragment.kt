@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.WarwickWestonWright.MM_Messenger.Data.Objects.MsgThreadParcel
-import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThread
 import com.WarwickWestonWright.MM_Messenger.R
-import com.WarwickWestonWright.MM_Messenger.UI.ListFragments.placeholder.PlaceholderContent
 
 class MessageItemListFragment : Fragment() {
 
