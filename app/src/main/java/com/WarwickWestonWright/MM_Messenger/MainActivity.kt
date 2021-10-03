@@ -7,10 +7,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.WarwickWestonWright.MM_Messenger.Constants.ONE_HOUR
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThread
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
+import com.WarwickWestonWright.MM_Messenger.Data.ViewModels.MsgThreadsViewModel
 import com.WarwickWestonWright.MM_Messenger.FileHandlers.TextAssetMan
+import com.WarwickWestonWright.MM_Messenger.UI.Fragments.MainFragment
 import com.WarwickWestonWright.MM_Messenger.Utilities.RoomUtils.RoomUtils
 import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 import com.WarwickWestonWright.MM_Messenger.databinding.MainActivityBinding
@@ -30,17 +33,14 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
     private lateinit var roomUtils: RoomUtils
     private lateinit var timeUtils: TimeUtils
 
-    //private lateinit var btnToggleInOutGoing : Button
-    private lateinit var bntClearThread : Button
-    private lateinit var txtMsg : EditText
-    private lateinit var btnSendMsg : Button
+    private lateinit var mainFragment : MainFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
         rootView = binding.root
         setContentView(rootView)
-        //setContentView(R.layout.main_activity)
+        msgThreadsViewModel = ViewModelProvider(this).get(MsgThreadsViewModel::class.java)
         app = App.getApp()
         am = assets
         textAssetMan = TextAssetMan(this, app.assets)
@@ -59,6 +59,10 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
         binding.btnSendMsg.setOnClickListener {
             Toast.makeText(this, "ToDo: " + binding.txtMsg.text.toString(), Toast.LENGTH_SHORT).show()
         }
+
+        mainFragment = MainFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.lytMainFragmentContainer, mainFragment, "MainFragment").commit()
+
     }
 
     override fun getText(text: String) {
@@ -88,7 +92,6 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
             /* Test Code For Older than hour */
             msgThreads.add(msgThread)
             timeUtils.olderThanAnHour(msgThread.timeStamp)
-            val x = 0
         }
         //msgThreadsDb.userDao().insertAll(msgThreads)//Use this if you don't want list to be updated
         roomUtils.insertAll(msgThreads)//Update db through roomUtils to update list
@@ -111,7 +114,7 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
 
     override fun insertAll(msgThreadsInserted: List<MsgThread>) {
         runOnUiThread {
-            Toast.makeText(this, msgThreads.size.toString() + " Records Created", Toast.LENGTH_LONG).show()
+            msgThreadsViewModel.selected.value = msgThreadsInserted?.toMutableList()
         }
     }
 
@@ -120,6 +123,10 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
             msgThreads = msgThreadsDb.userDao().getAll().toMutableList()
             Toast.makeText(this, msgThreads.size.toString() + " Records Created", Toast.LENGTH_LONG).show()
         }
+    }
+
+    companion object {
+        lateinit var msgThreadsViewModel: MsgThreadsViewModel
     }
 
 }

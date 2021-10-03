@@ -36,7 +36,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ltyMsgListContainer"
+        android:id="@+id/lytMainFragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/lytTestButtonsContainer"
@@ -44,15 +44,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/lytMsgSendingContainer"
         android:orientation="vertical"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Message List Container" />
-
-    </LinearLayout>
+        android:gravity="center_vertical" />
 
     <LinearLayout
         android:id="@+id/lytMsgSendingContainer"
