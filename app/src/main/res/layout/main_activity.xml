@@ -13,21 +13,23 @@
         android:orientation="horizontal"
         android:layout_alignParentTop="true">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnToggleInOutGoing"
+            style="@style/btn_button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:layout_marginEnd="2.5dp"
-            android:text="Outgoing"/>
+            android:text="@string/btn_outgoing"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bntClearThread"
+            style="@style/btn_button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:layout_marginStart="0.25dp"
-            android:text="Clear Thread"/>
+            android:text="@string/btn_clear_thread"/>
 
     </LinearLayout>
 
@@ -55,15 +57,16 @@
             android:layout_weight="0.25"
             android:layout_marginEnd="2.5dp"
             android:gravity="center"
-            android:hint="Enter Message"/>
+            android:hint="@string/hint_enter_message"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSendMsg"
+            style="@style/btn_button_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.75"
             android:layout_marginStart="0.25dp"
-            android:text="Send"/>
+            android:text="@string/btn_send"/>
 
     </LinearLayout>
 

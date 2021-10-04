@@ -5,8 +5,8 @@ import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 
 class RoomUtils {
 
-    private lateinit var msgThreadsDb : MsgThreadsDb
-    private lateinit var iRoomUtils : IRoomUtils
+    private var msgThreadsDb : MsgThreadsDb
+    private var iRoomUtils : IRoomUtils
 
     interface IRoomUtils {
         fun deleteAll(msgThreadsDeleted : List<MsgThread>)
@@ -22,7 +22,7 @@ class RoomUtils {
     fun deleteAll(msgThreads : List<MsgThread>) {
         Thread {
             msgThreadsDb.userDao().deleteAll(msgThreads)
-            iRoomUtils.deleteAll(msgThreads)
+            iRoomUtils.deleteAll(listOf())
         }.start()
     }
 

@@ -3,6 +3,7 @@ package com.WarwickWestonWright.MM_Messenger
 import android.content.res.AssetManager
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 import com.WarwickWestonWright.MM_Messenger.Data.ViewModels.MsgThreadsViewModel
 import com.WarwickWestonWright.MM_Messenger.FileHandlers.TextAssetMan
 import com.WarwickWestonWright.MM_Messenger.UI.Fragments.MainFragment
+import com.WarwickWestonWright.MM_Messenger.Utilities.MsgFormatterCron.MsgFormatterCron
 import com.WarwickWestonWright.MM_Messenger.Utilities.RoomUtils.RoomUtils
 import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 import com.WarwickWestonWright.MM_Messenger.databinding.MainActivityBinding
@@ -20,7 +22,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
-class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.IRoomUtils {
+class MainActivity : AppCompatActivity(),
+    TextAssetMan.ITextAssetMan,
+    RoomUtils.IRoomUtils, MsgFormatterCron.IMsgFormatterCron {
 
     private lateinit var binding: MainActivityBinding
     private lateinit var rootView : View
@@ -47,12 +51,24 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
         msgThreadsDb = app.msgThreadsDb
         roomUtils = RoomUtils(this, msgThreadsDb)
         timeUtils = TimeUtils()
+        MsgFormatterCron(this)
+
         binding.btnToggleInOutGoing.setOnClickListener {
-            Toast.makeText(this, "ToDo", Toast.LENGTH_SHORT).show()
+            val button = it as Button
+            if(button.text.toString() == getString(R.string.btn_outgoing)) {
+                button.text = getString(R.string.btn_incoming)
+                app.outgoing = false
+            }
+            else if(button.text.toString() == getString(R.string.btn_incoming)) {
+                button.text = getString(R.string.btn_outgoing)
+                app.outgoing = true
+            }
         }
 
         binding.bntClearThread.setOnClickListener {
-            Toast.makeText(this, "ToDo", Toast.LENGTH_SHORT).show()
+            Thread {
+                roomUtils.deleteAll(msgThreads)//Update db through roomUtils to update list
+            }.start()
         }
 
         binding.btnSendMsg.setOnClickListener {
@@ -76,13 +92,13 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
             val timeStamp = jso.getString("time_stamp").toLong()
             val message = jso.getString("message")
             val msgThread = MsgThread(uid = 0,
-                outId = outId as String?,
-                outLabel = outLabel as String?,
-                inId = inId as String?,
-                inLabel = inLabel as String?,
+                outId = outId,
+                outLabel = outLabel,
+                inId = inId,
+                inLabel = inLabel,
                 isOutgoing = isOutgoing as Boolean?,
                 timeStamp = timeStamp as Long?,
-                message = message as String?
+                message = message
             )
             /* Test Code For Older than hour */
             if(msgThread.timeStamp!! == 0L) {
@@ -96,6 +112,7 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
         roomUtils.insertAll(msgThreads)//Update db through roomUtils to update list
     }
 
+    /*
     override fun onStop() {
         super.onStop()
         Thread {
@@ -104,10 +121,12 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
             roomUtils.deleteAll(msgThreads)//Update db through roomUtils to update list
         }.start()
     }
+    * */
 
     override fun deleteAll(msgThreadsDeleted: List<MsgThread>) {
         runOnUiThread {
             Toast.makeText(this, msgThreads.size.toString() + " Records Deleted", Toast.LENGTH_LONG).show()
+            msgThreadsViewModel.selected.value = msgThreadsDeleted.toMutableList()
         }
     }
 
@@ -123,6 +142,10 @@ class MainActivity : AppCompatActivity(), TextAssetMan.ITextAssetMan, RoomUtils.
             msgThreads = msgThreadsDb.userDao().getAll().toMutableList()
             Toast.makeText(this, msgThreads.size.toString() + " Records Created", Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun execForeground(currentTime : Long) {
+        val x = 0
     }
 
     companion object {

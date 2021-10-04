@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/drawable/mm_button_bg.xml" value="0.33240740740740743" />
         <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/drawable/mm_incoming_bg.xml" value="0.33611111111111114" />
         <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/drawable/mm_incoming_bg_tail.xml" value="0.33611111111111114" />
         <entry key="..\:/Users/warwi/AndroidStudioProjects/MM_Messenger/app/src/main/res/drawable/mm_outgoing_bg.xml" value="0.33611111111111114" />

@@ -7,6 +7,7 @@ import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 class App : Application() {
 
     lateinit var msgThreadsDb: MsgThreadsDb
+    var outgoing = true
 
     override fun onCreate() {
         super.onCreate()
