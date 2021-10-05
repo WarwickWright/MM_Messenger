@@ -7,8 +7,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.WarwickWestonWright.MM_Messenger.Constants.IN_ID
-import com.WarwickWestonWright.MM_Messenger.Constants.ONE_HOUR
+import com.WarwickWestonWright.MM_Messenger.Constants.*
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThread
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 import com.WarwickWestonWright.MM_Messenger.Data.ViewModels.MsgThreadsViewModel
@@ -73,6 +72,21 @@ class MainActivity : AppCompatActivity(),
 
         binding.btnSendMsg.setOnClickListener {
             Toast.makeText(this, "ToDo: " + binding.txtMsg.text.toString(), Toast.LENGTH_SHORT).show()
+            val txtMsg = binding.txtMsg
+            if(txtMsg.text.toString().isNotEmpty()) {
+                val msgThreadNew = MsgThread(
+                    0,
+                    OUT_ID,
+                    OUT_LABEL,
+                    IN_ID,
+                    IN_LABEL,
+                    app.outgoing,
+                    System.currentTimeMillis(),
+                    txtMsg.text.toString()
+                )
+                msgThreads.add(msgThreadNew)
+                msgThreadsViewModel.selected.value = msgThreads
+            }
         }
 
         mainFragment = MainFragment()
