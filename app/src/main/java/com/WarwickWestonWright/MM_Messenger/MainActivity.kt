@@ -65,9 +65,7 @@ class MainActivity : AppCompatActivity(),
         }
 
         binding.bntClearThread.setOnClickListener {
-            Thread {
-                roomUtils.deleteAll(msgThreads)//Update db through roomUtils to update list
-            }.start()
+            roomUtils.deleteAll(msgThreads)//Update db through roomUtils to update list
         }
 
         binding.btnSendMsg.setOnClickListener {
@@ -85,7 +83,7 @@ class MainActivity : AppCompatActivity(),
                     txtMsg.text.toString()
                 )
                 msgThreads.add(msgThreadNew)
-                msgThreadsViewModel.selected.value = msgThreads
+                roomUtils.insertMsg(msgThreadNew)
             }
         }
 
@@ -151,10 +149,10 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun insertMsg(idOfInsertedMsg: Int) {
+    override fun insertMsg(idOfInsertedMsg: MsgThread) {
+        msgThreads = msgThreadsDb.userDao().loadAllByIds(IN_ID).toMutableList()
         runOnUiThread {
-            msgThreads = msgThreadsDb.userDao().getAll().toMutableList()
-            Toast.makeText(this, msgThreads.size.toString() + " Records Created", Toast.LENGTH_LONG).show()
+            msgThreadsViewModel.selected.value = msgThreads
         }
     }
 

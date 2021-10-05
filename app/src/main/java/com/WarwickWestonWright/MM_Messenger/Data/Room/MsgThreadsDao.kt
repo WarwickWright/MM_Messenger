@@ -1,9 +1,6 @@
 package com.WarwickWestonWright.MM_Messenger.Data.Room
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface MsgThreadDao {
@@ -14,7 +11,7 @@ interface MsgThreadDao {
     @Query("SELECT * FROM MsgThread WHERE in_id IN (:inId) ORDER BY time_stamp ASC")
     fun loadAllByIds(inId: String): List<MsgThread>//Open ended so that can filter by incoming messages
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMsg(msgThread : MsgThread) : Long
 
     @Insert

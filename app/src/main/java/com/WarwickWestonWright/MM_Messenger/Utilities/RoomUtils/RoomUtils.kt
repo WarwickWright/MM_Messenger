@@ -11,7 +11,7 @@ class RoomUtils {
     interface IRoomUtils {
         fun deleteAll(msgThreadsDeleted : List<MsgThread>)
         fun insertAll(msgThreadsInserted : List<MsgThread>)
-        fun insertMsg(idOfInsertedMsg : Int)
+        fun insertMsg(idOfInsertedMsg : MsgThread)
     }
 
     constructor(iRoomUtils : IRoomUtils, msgThreadsDb: MsgThreadsDb) {
@@ -34,8 +34,10 @@ class RoomUtils {
     }
 
     fun insertMsg(msgThread : MsgThread) {
-        val idOfInsertedMsg = msgThreadsDb.userDao().insertMsg(msgThread) as Int
-        iRoomUtils.insertMsg(idOfInsertedMsg)
+        Thread {
+            msgThreadsDb.userDao().insertMsg(msgThread)
+            iRoomUtils.insertMsg(msgThread)
+        }.start()
     }
 
 }

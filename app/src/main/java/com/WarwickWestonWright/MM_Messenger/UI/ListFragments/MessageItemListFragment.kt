@@ -17,7 +17,6 @@ class MessageItemListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments.let { bundle ->
-            //bundle.putParcelableArrayList("msgThreadObjs", msgThreadObjs as ArrayList<out Parcelable>)
             msgThreads = bundle?.getParcelableArrayList("msgThreadObjs")!!
         }
     }
@@ -28,6 +27,9 @@ class MessageItemListFragment : Fragment() {
             with(view) {
                 layoutManager = LinearLayoutManager(context)
                 adapter = MessageItemAdapter(msgThreads)
+            }
+            view.post {
+                view.scrollToPosition(msgThreads.size - 1)
             }
         }
         return view

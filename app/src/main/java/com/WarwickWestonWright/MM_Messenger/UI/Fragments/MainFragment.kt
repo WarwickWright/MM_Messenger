@@ -34,7 +34,6 @@ class MainFragment : Fragment() {
             //Update the UI
             updateMasterList(msgThreadObjs)
         })
-
         return rootView
     }
 
