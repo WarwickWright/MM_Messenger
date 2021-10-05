@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/outgoing_bg"
+                android:background="@drawable/mm_outgoing_bg"
                 android:padding="6dp"
                 android:orientation="vertical">
 
@@ -47,6 +47,7 @@
 
         </LinearLayout>
 
+        <!-- This view is a 20% spacer -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,6 +65,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <!-- This view is a 20% spacer -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

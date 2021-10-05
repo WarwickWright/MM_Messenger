@@ -17,6 +17,7 @@ class MessageItemAdapter(private val values: MutableList<MsgThreadParcel>) : Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
+        holder.itemView.tag = item
         if(item.getIsOutgoing()) {
             holder.lytInComing.visibility = View.GONE
             holder.lytOutGoing.visibility = View.VISIBLE

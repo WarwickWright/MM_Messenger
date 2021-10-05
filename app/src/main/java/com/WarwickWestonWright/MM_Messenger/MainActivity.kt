@@ -13,7 +13,6 @@ import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 import com.WarwickWestonWright.MM_Messenger.Data.ViewModels.MsgThreadsViewModel
 import com.WarwickWestonWright.MM_Messenger.FileHandlers.TextAssetMan
 import com.WarwickWestonWright.MM_Messenger.UI.Fragments.MainFragment
-import com.WarwickWestonWright.MM_Messenger.Utilities.MsgFormatterCron.MsgFormatterCron
 import com.WarwickWestonWright.MM_Messenger.Utilities.RoomUtils.RoomUtils
 import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 import com.WarwickWestonWright.MM_Messenger.databinding.MainActivityBinding
@@ -23,7 +22,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(),
     TextAssetMan.ITextAssetMan,
-    RoomUtils.IRoomUtils, MsgFormatterCron.IMsgFormatterCron {
+    RoomUtils.IRoomUtils {
 
     private lateinit var binding: MainActivityBinding
     private lateinit var rootView : View
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity(),
         msgThreadsDb = app.msgThreadsDb
         roomUtils = RoomUtils(this, msgThreadsDb)
         timeUtils = TimeUtils()
-        MsgFormatterCron(this)
 
         binding.btnToggleInOutGoing.setOnClickListener {
             val button = it as Button
@@ -69,7 +67,6 @@ class MainActivity : AppCompatActivity(),
         }
 
         binding.btnSendMsg.setOnClickListener {
-            Toast.makeText(this, "ToDo: " + binding.txtMsg.text.toString(), Toast.LENGTH_SHORT).show()
             val txtMsg = binding.txtMsg
             if(txtMsg.text.toString().isNotEmpty()) {
                 val msgThreadNew = MsgThread(
@@ -154,10 +151,6 @@ class MainActivity : AppCompatActivity(),
         runOnUiThread {
             msgThreadsViewModel.selected.value = msgThreads
         }
-    }
-
-    override fun execForeground(currentTime : Long) {
-        val x = 0
     }
 
     companion object {
