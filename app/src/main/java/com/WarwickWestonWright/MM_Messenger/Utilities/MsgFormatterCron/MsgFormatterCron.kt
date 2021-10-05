@@ -5,7 +5,6 @@ import com.WarwickWestonWright.MM_Messenger.Constants.MSG_FORMAT_INTERVAL
 class MsgFormatterCron(val iMsgFormatterCron : IMsgFormatterCron) {
 
     interface IMsgFormatterCron { fun execForeground(currentTime : Long) }
-    //private var thisRef : WeakReference<MsgFormatterCron> = WeakReference<MsgFormatterCron>(this)
     private var currentTime = 0L
     private var endTime = 0L
 

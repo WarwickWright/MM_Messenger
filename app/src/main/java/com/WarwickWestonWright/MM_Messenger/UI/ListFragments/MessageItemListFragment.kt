@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.WarwickWestonWright.MM_Messenger.Constants.TWENY_SECONDS
 import com.WarwickWestonWright.MM_Messenger.Data.Objects.MsgThreadParcel
 import com.WarwickWestonWright.MM_Messenger.R
 import com.WarwickWestonWright.MM_Messenger.Utilities.MsgFormatterCron.MsgFormatterCron
-import com.WarwickWestonWright.MM_Messenger.Utilities.MsgThreadUtils.MsgThreadUtils
+import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 
 class MessageItemListFragment : Fragment(),
     RecyclerView.OnChildAttachStateChangeListener,
@@ -21,7 +23,7 @@ class MessageItemListFragment : Fragment(),
     private lateinit var rootView : RecyclerView
     private lateinit var msgFormatterCron : MsgFormatterCron
     private var lastItemIdx = 0
-    private val msgThreadUtils = MsgThreadUtils()
+    private val timeUtils = TimeUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,19 +56,61 @@ class MessageItemListFragment : Fragment(),
         //Find last Uid
         val lastUid = msgThreads.get(lastItemIdx).getUid()
         //Check if in scope view is the last list item
+        //Greater than 20 seconds section
         if(msgThreadParcel.getUid() == lastUid) {
-            Toast.makeText(activity, "Last Index: $lastItemIdx", Toast.LENGTH_SHORT).show()
-
+            if(msgThreadParcel.isOutgoing) {
+                val lytOutGoingItem = (((view as LinearLayout).getChildAt(0) as LinearLayout).
+                getChildAt(0) as LinearLayout).getChildAt(0)
+                setOutGoingTail(lytOutGoingItem)
+            }
         }
         else {
-            Toast.makeText(activity, "TimeStamp: " + msgThreadParcel.getTimeStamp(), Toast.LENGTH_SHORT).show()
+            val lytOutgoingItem = (((view as LinearLayout).getChildAt(0) as LinearLayout).
+            getChildAt(0) as LinearLayout).getChildAt(0)
+            if(msgThreadParcel.getTimeStamp() + TWENY_SECONDS < System.currentTimeMillis()) {
+                setOutGoingTail(lytOutgoingItem)
+            }
+            else {
+                lytOutgoingItem.background = resources.getDrawable(R.drawable.mm_outgoing_bg, activity?.theme)
+            }
+            olderThanHourAction(view)
+        }
+
+    }
+
+    private fun setOutGoingTail(lytOutGoingItem : View) {
+        lytOutGoingItem.background = resources.getDrawable(R.drawable.mm_outgoing_bg_tail, activity?.theme)
+    }
+
+    private fun olderThanHourAction(view : LinearLayout) {
+        val ts = view.tag as MsgThreadParcel
+        val tsViewOutgoing = (((view.getChildAt(0) as LinearLayout).getChildAt(0) as LinearLayout).
+        getChildAt(0) as LinearLayout).getChildAt(1) as TextView//Timestamp View
+        val tsViewIncoming = (((view.getChildAt(1) as LinearLayout).getChildAt(1) as LinearLayout).
+        getChildAt(0) as LinearLayout).getChildAt(1) as TextView//Timestamp View
+        if(timeUtils.olderThanAnHour(ts.getTimeStamp())) {
+            tsViewOutgoing.visibility = View.VISIBLE
+            tsViewIncoming.visibility = View.VISIBLE
+        }
+        else {
+            tsViewOutgoing.visibility = View.GONE
+            tsViewIncoming.visibility = View.GONE
         }
     }
 
-    override fun onChildViewDetachedFromWindow(view: View) {
-        //
-    }
+    override fun onChildViewDetachedFromWindow(view: View) {}
 
-    override fun execForeground(currentTime: Long) {}
+    override fun execForeground(currentTime: Long) {
+        activity?.runOnUiThread {
+
+            for(i in 0 until msgThreads.size - 1) {
+                val view = rootView.findViewWithTag<LinearLayout>(msgThreads[i])
+                if(view != null) {
+                    olderThanHourAction(view)
+                }
+            }
+
+        }
+    }
 
 }

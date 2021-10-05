@@ -19,17 +19,17 @@ class MessageItemAdapter(private val values: MutableList<MsgThreadParcel>) : Rec
         val item = values[position]
         holder.itemView.tag = item
         if(item.getIsOutgoing()) {
-            holder.lytInComing.visibility = View.GONE
-            holder.lytOutGoing.visibility = View.VISIBLE
-            holder.lblOutGoing.text = item.getMessage()
-            holder.lblInComing.text = ""
+            holder.lytIncoming.visibility = View.GONE
+            holder.lytOutgoing.visibility = View.VISIBLE
+            holder.lblOutgoing.text = item.getMessage()
+            holder.lblIncoming.text = ""
             holder.lblTimeStampOutgoing.text = item.getTimeStamp().toString()
         }
         else {
-            holder.lytInComing.visibility = View.VISIBLE
-            holder.lytOutGoing.visibility = View.GONE
-            holder.lblOutGoing.text = ""
-            holder.lblInComing.text = item.getMessage()
+            holder.lytIncoming.visibility = View.VISIBLE
+            holder.lytOutgoing.visibility = View.GONE
+            holder.lblOutgoing.text = ""
+            holder.lblIncoming.text = item.getMessage()
             holder.lblTimeStampIncoming.text = item.getTimeStamp().toString()
         }
     }
@@ -38,10 +38,10 @@ class MessageItemAdapter(private val values: MutableList<MsgThreadParcel>) : Rec
 
     inner class ViewHolder(binding: MessageItemFragmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val lytOutGoing: LinearLayout = binding.lytOutGoing
-        val lytInComing: LinearLayout = binding.lytInComing
-        val lblOutGoing: TextView = binding.lblOutGoing
-        val lblInComing: TextView = binding.lblInComing
+        val lytOutgoing: LinearLayout = binding.lytOutgoing
+        val lytIncoming: LinearLayout = binding.lytIncoming
+        val lblOutgoing: TextView = binding.lblOutgoing
+        val lblIncoming: TextView = binding.lblIncoming
         val lblTimeStampIncoming: TextView = binding.lblTimeStampIncoming
         val lblTimeStampOutgoing: TextView = binding.lblTimeStampOutgoing
 
