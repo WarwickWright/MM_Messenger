@@ -24,7 +24,6 @@
                 android:id="@+id/lytOutgoingItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/mm_outgoing_bg"
                 android:padding="6dp"
                 android:orientation="vertical">
 
@@ -34,6 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
+                    android:background="@drawable/mm_outgoing_bg"
                     android:text="Test Message Test Message Test Message Test Message Test Message Test Message"/>
 
                 <TextView
@@ -41,7 +41,7 @@
                     style="@style/txt_message_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
+                    android:gravity="center"
                     android:visibility="gone"
                     android:text="TimeStamp"/>
 
@@ -87,7 +87,6 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/mm_incoming_bg_tail"
                 android:padding="6dp"
                 android:orientation="vertical">
 
@@ -97,6 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:background="@drawable/mm_incoming_bg_tail"
                     android:text="Test Message Test Message Test Message Test Message Test Message Test Message"/>
 
                 <TextView
@@ -104,7 +104,7 @@
                     style="@style/txt_message_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="center"
                     android:visibility="gone"
                     android:text="TimeStamp"/>
 

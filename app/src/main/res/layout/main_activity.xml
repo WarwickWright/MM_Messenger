@@ -57,6 +57,7 @@
             android:layout_weight="0.25"
             android:layout_marginEnd="2.5dp"
             android:gravity="center"
+            android:text="Test Message"
             android:hint="@string/hint_enter_message"/>
 
         <androidx.appcompat.widget.AppCompatButton

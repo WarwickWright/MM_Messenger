@@ -7,7 +7,10 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.WarwickWestonWright.MM_Messenger.Constants.*
+import com.WarwickWestonWright.MM_Messenger.Constants.IN_ID
+import com.WarwickWestonWright.MM_Messenger.Constants.IN_LABEL
+import com.WarwickWestonWright.MM_Messenger.Constants.OUT_ID
+import com.WarwickWestonWright.MM_Messenger.Constants.OUT_LABEL
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThread
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThreadsDb
 import com.WarwickWestonWright.MM_Messenger.Data.ViewModels.MsgThreadsViewModel
@@ -18,7 +21,6 @@ import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 import com.WarwickWestonWright.MM_Messenger.databinding.MainActivityBinding
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 
 class MainActivity : AppCompatActivity(),
     TextAssetMan.ITextAssetMan,
@@ -111,7 +113,7 @@ class MainActivity : AppCompatActivity(),
             )
             /* Test Code For Older than hour */
             if(msgThread.timeStamp!! == 0L) {
-                msgThread.timeStamp = Date().time - (ONE_HOUR - 1000)
+                msgThread.timeStamp = System.currentTimeMillis()
             }
             /* Test Code For Older than hour */
             msgThreads.add(msgThread)
@@ -121,7 +123,7 @@ class MainActivity : AppCompatActivity(),
         roomUtils.insertAll(msgThreads)//Update db through roomUtils to update list
     }
 
-    /*
+    /* Uncomment if you want list to empty on app close
     override fun onStop() {
         super.onStop()
         Thread {
