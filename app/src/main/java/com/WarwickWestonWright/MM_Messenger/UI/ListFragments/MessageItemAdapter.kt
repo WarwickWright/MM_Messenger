@@ -7,9 +7,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.WarwickWestonWright.MM_Messenger.Data.Objects.MsgThreadParcel
+import com.WarwickWestonWright.MM_Messenger.Utilities.TimeUtils.TimeUtils
 import com.WarwickWestonWright.MM_Messenger.databinding.MessageItemFragmentBinding
 
 class MessageItemAdapter(private val values: MutableList<MsgThreadParcel>) : RecyclerView.Adapter<MessageItemAdapter.ViewHolder>() {
+
+    val timeUtils = TimeUtils()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(MessageItemFragmentBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -23,14 +26,14 @@ class MessageItemAdapter(private val values: MutableList<MsgThreadParcel>) : Rec
             holder.lytOutgoing.visibility = View.VISIBLE
             holder.lblOutgoing.text = item.getMessage()
             holder.lblIncoming.text = ""
-            holder.lblTimeStampOutgoing.text = item.getTimeStamp().toString()
+            holder.lblTimeStampOutgoing.text = timeUtils.timeStampToLocalTime(item.getTimeStamp())
         }
         else {
             holder.lytIncoming.visibility = View.VISIBLE
             holder.lytOutgoing.visibility = View.GONE
             holder.lblOutgoing.text = ""
             holder.lblIncoming.text = item.getMessage()
-            holder.lblTimeStampIncoming.text = item.getTimeStamp().toString()
+            holder.lblTimeStampIncoming.text = timeUtils.timeStampToLocalTime(item.getTimeStamp())
         }
     }
 

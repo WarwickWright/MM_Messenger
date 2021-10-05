@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="outgoing_bg">#E6DADA</color>
     <color name="incoming_bg">#CF4373</color>
+    <color name="timestamp_text_color">#636363</color>
 </resources>

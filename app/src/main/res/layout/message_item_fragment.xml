@@ -43,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:visibility="gone"
+                    android:textColor="@color/timestamp_text_color"
                     android:text="TimeStamp"/>
 
             </LinearLayout>
@@ -106,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:visibility="gone"
+                    android:textColor="@color/timestamp_text_color"
                     android:text="TimeStamp"/>
 
             </LinearLayout>
