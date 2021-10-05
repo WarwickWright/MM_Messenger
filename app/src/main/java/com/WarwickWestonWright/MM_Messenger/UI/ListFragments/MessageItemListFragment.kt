@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.WarwickWestonWright.MM_Messenger.Constants.TWENY_SECONDS
 import com.WarwickWestonWright.MM_Messenger.Data.Objects.MsgThreadParcel
 import com.WarwickWestonWright.MM_Messenger.R
 import com.WarwickWestonWright.MM_Messenger.Utilities.MsgFormatterCron.MsgFormatterCron
@@ -67,7 +66,7 @@ class MessageItemListFragment : Fragment(),
         else {
             val lblOutgoing = ((((view as LinearLayout).getChildAt(0) as LinearLayout).
             getChildAt(0) as LinearLayout).getChildAt(0) as LinearLayout).getChildAt(0) as TextView
-            if(msgThreadParcel.getTimeStamp() + TWENY_SECONDS < System.currentTimeMillis()) {
+            if(timeUtils.olderThan20seconds(msgThreadParcel.getTimeStamp())) {
                 setOutgoingTail(lblOutgoing)
             }
             else {
@@ -95,6 +94,11 @@ class MessageItemListFragment : Fragment(),
                 else {
                     tsViewOutgoing.visibility = View.GONE
                 }
+                if(timeUtils.olderThan20seconds(msgThreadParcel.getTimeStamp())) {
+                    val lblOutgoing = (((view.getChildAt(1) as LinearLayout).getChildAt(1) as LinearLayout).
+                    getChildAt(0) as LinearLayout).getChildAt(0) as TextView//Message View
+                    setOutgoingTail(lblOutgoing)
+                }
             }
             else {
                 if(timeUtils.olderThanAnHour(msgThreadParcel.getTimeStamp())) {
@@ -119,14 +123,18 @@ class MessageItemListFragment : Fragment(),
 
     override fun execForeground(currentTime: Long) {
         activity?.runOnUiThread {
-
             for(i in 0 until msgThreads.size) {
                 val view = rootView.findViewWithTag<LinearLayout>(msgThreads[i])
                 if(view != null) {
+                    val msgThreadParcel = view.tag as MsgThreadParcel
                     olderThanHourAction(view)
+                    if(timeUtils.olderThan20seconds(msgThreadParcel.getTimeStamp())) {
+                        val lblOutgoing = (((view.getChildAt(0) as LinearLayout).getChildAt(0) as LinearLayout).
+                        getChildAt(0) as LinearLayout).getChildAt(0) as TextView
+                        setOutgoingTail(lblOutgoing)
+                    }
                 }
             }
-
         }
     }
 

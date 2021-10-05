@@ -1,3 +1,6 @@
+/*
+Class acts as a Room data change listener
+* */
 package com.WarwickWestonWright.MM_Messenger.Utilities.RoomUtils
 
 import com.WarwickWestonWright.MM_Messenger.Data.Room.MsgThread

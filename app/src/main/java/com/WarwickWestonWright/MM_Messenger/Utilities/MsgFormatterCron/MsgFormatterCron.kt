@@ -1,3 +1,6 @@
+/*
+Runs a cron job implemented in MessageItemListFragment to dynamically format list backgrounds
+* */
 package com.WarwickWestonWright.MM_Messenger.Utilities.MsgFormatterCron
 
 import com.WarwickWestonWright.MM_Messenger.Constants.MSG_FORMAT_INTERVAL

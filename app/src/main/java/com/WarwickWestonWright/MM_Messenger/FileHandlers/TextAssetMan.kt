@@ -1,3 +1,6 @@
+/*
+Simple utility class to pick up test message feed from assets
+* */
 package com.WarwickWestonWright.MM_Messenger.FileHandlers
 
 import android.content.res.AssetManager
